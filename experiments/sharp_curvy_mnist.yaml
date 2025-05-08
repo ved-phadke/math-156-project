@@ -1,0 +1,42 @@
+experiment_name: "mnist_sharp_then_curvy"
+base_model_path: "../models/" # Relative to the location of train.py/evaluate.py in src/
+
+task1:
+  name: "sharp_digits"
+  digits: [1, 2, 5, 4, 7] # "sharp" digits
+  train_params:
+    epochs: 5
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+  model_save_name: "model_task1_sharp.pth"
+
+task2:
+  name: "curvy_digits"
+  digits: [0, 2, 3, 5, 6, 8, 9] # "curvy" digits
+  train_params:
+    epochs: 5
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+  model_load_name: "model_task1_sharp.pth" # Load model trained on Task 1
+  model_save_name: "model_task2_curvy.pth"
+
+evaluation:
+  # Accuracy on Task 1 (sharp) test set using model trained on Task 1
+  - name: "eval_task1_after_task1"
+    model_load_name: "model_task1_sharp.pth"
+    task_name: "sharp_digits"
+    digits: [1, 4, 7]
+
+  # Accuracy on Task 1 (sharp) test set using model trained on Task 1 then Task 2 (measures forgetting)
+  - name: "eval_task1_after_task2"
+    model_load_name: "model_task2_curvy.pth"
+    task_name: "sharp_digits"
+    digits: [1, 4, 7]
+
+  # Accuracy on Task 2 (curvy) test set using model trained on Task 1 then Task 2
+  - name: "eval_task2_after_task2"
+    model_load_name: "model_task2_curvy.pth"
+    task_name: "curvy_digits"
+    digits: [0, 2, 3, 5, 6, 8, 9]
