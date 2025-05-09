@@ -17,7 +17,7 @@ Experiments are defined by YAML configuration files in the `experiments/` direct
 
 ### Example: Sharp vs. Curvy Digits Experiment
 
-The `experiments/sharp_curvy_mnist.yaml` defines two training tasks and three evaluation steps.
+The `experiments/sharp_curvy_mnist.yaml` defines two training tasks and four evaluation steps.
 
 **1. Train on Task 1 (Sharp Digits):**
    Open your terminal in the project root directory (`math-156-project/`) and run:
@@ -29,8 +29,20 @@ The `experiments/sharp_curvy_mnist.yaml` defines two training tasks and three ev
    ```bash
    python src/train.py --config experiments/sharp_curvy_mnist.yaml --task task1
    ```
-**3. Eval on Task 1 with Task 1 model (Sharp Digits)**
+**3. Eval on Task 1 with Task 1 model**
    ```bash
    python src/evaluate.py --config experiments/sharp_curvy_mnist.yaml --eval_name eval_task1_after_task1
    ```  
-**4. Eval on Task 2 w/Task 1 **
+**4. Eval on Task 2 w/Task 1 model**
+   ```bash
+   python src/evaluate.py --config experiments/sharp_curvy_mnist.yaml --eval_name eval_task2_after_task1
+   ```  
+**5. Eval on Task 1 w/Task 2 model**
+   ```bash
+   python src/evaluate.py --config experiments/sharp_curvy_mnist.yaml --eval_name eval_task1_after_task2
+   ```  
+**6. Eval on Task 2 w/Task 2 model**
+   ```bash
+   python src/evaluate.py --config experiments/sharp_curvy_mnist.yaml --eval_name eval_task2_after_task2
+   ```  
+After every evaluation step, a new line is saved in /results/results.csv.
