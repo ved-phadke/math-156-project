@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import os
 import sys
+import csv
 
 # Add project root to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -79,6 +80,18 @@ def evaluate_task(config_path, eval_key):
     print(f'Evaluation: {eval_config["name"]}')
     print(f'  Test Loss: {avg_test_loss:.4f}')
     print(f'  Accuracy on {eval_config["task_name"]} ({eval_config["digits"]} digits): {accuracy:.2f}% ({correct}/{total})')
+    
+    # Saving results
+    results_dir = os.path.join(project_root, 'results')
+    os.makedirs(results_dir, exist_ok=True)
+
+    # Construct the path to the results file
+    results_file = os.path.join(results_dir, 'results.csv')
+    with open(results_file, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([eval_config["name"], eval_config["task_name"], eval_config["digits"], avg_test_loss, accuracy])
+    print(f"Results saved to {results_file}")
+
     return accuracy
 
 if __name__ == '__main__':

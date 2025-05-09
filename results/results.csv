@@ -1,0 +1,4 @@
+eval_task1_after_task1,sharp_digits,"[1, 2, 4, 5, 7]",0.016100883257165067,99.3095285066088
+eval_task1_after_task2,sharp_digits,"[1, 2, 4, 5, 7]",9.84951368302936,37.79838232392977
+eval_task2_after_task2,curvy_digits,"[0, 3, 6, 8, 9]",0.0165461561064831,99.53356317177044
+eval_task2_after_task1,curvy_digits,"[0, 3, 6, 8, 9]",12.971626705292682,0.0

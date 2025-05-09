@@ -6,9 +6,7 @@ import torch.nn as nn
 import os
 import sys
 
-# Add project root to path to allow importing from src.model and src.data_loader
-# when train.py is in src/ and potentially called from project root.
-# This makes 'from model import ...' and 'from data_loader import ...' work.
+# Add project root to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from src.model import BaselineClassifier
@@ -33,7 +31,7 @@ def train_task(config_path, task_key):
     train_loader, _ = get_filtered_mnist_dataloaders(
         task_config['digits'],
         batch_size_train=task_config['train_params'].get('batch_size', 128),
-        data_root='./data' # Assumes script is run from project root, so data is in ./data
+        data_root='./data'
     )
 
     # Model
@@ -41,7 +39,7 @@ def train_task(config_path, task_key):
     
     # Determine absolute path for base_model_path relative to project root
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    base_model_dir = os.path.join(project_root, 'models') # Standardized models directory
+    base_model_dir = os.path.join(project_root, 'models')
 
     if task_config.get('model_load_name'):
         load_path = os.path.join(base_model_dir, task_config['model_load_name'])
