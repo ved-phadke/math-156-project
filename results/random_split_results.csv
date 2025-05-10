@@ -1,0 +1,4 @@
+EvaluationName,Paradigm,EvaluatedDigits,TestLoss,Accuracy,Correct,Total,ModelLoaded
+eval_A_on_A_after_A_training_TIL,TIL,"[0, 2, 3, 6, 9]",0.0074,99.84,4981,4989,model_task_A_til.pth
+eval_B_on_B_after_B_training_TIL,TIL,"[1, 4, 5, 7, 8]",0.0085,99.70,4996,5011,model_task_B_til.pth
+eval_A_on_A_after_B_training_TIL,TIL,"[0, 2, 3, 6, 9]",0.0243,99.38,4958,4989,Body:model_task_B_til.pth_Head:model_task_A_til.pth

@@ -1,49 +1,38 @@
-experiment_name: "mnist_sharp_then_curvy"
-base_model_path: "../models/" 
+experiment_name: "mnist_sharp_then_curvy_CIL"
+learning_paradigm: "CIL" # Specify paradigm for the whole experiment
+base_model_dir: "models" 
+data_dir: "data"
+results_dir: "results"
+results_filename: "sharp_curvy_results.csv"
 
 task1:
-  name: "sharp_digits"
-  digits: [1, 2, 4, 5, 7] # "sharp" digits
+  name: "sharp_digits_CIL"
+  digits: [1, 4, 7] 
   train_params:
     epochs: 5
     lr: 0.001
     optimizer: "RMSprop"
-    batch_size: 128
-  model_save_name: "model_task1_sharp.pth"
+  model_save_name: "model_task1_sharp_cil.pth"
 
 task2:
-  name: "curvy_digits"
-  digits: [0, 3, 6, 8, 9] # "curvy" digits
+  name: "curvy_digits_CIL"
+  digits: [0, 2, 3, 5, 6, 8, 9] 
   train_params:
     epochs: 5
     lr: 0.001
     optimizer: "RMSprop"
-    batch_size: 128
-  model_load_name: "model_task1_sharp.pth" # Load model trained on Task 1
-  model_save_name: "model_task2_curvy.pth"
+  model_load_name: "model_task1_sharp_cil.pth" 
+  model_save_name: "model_task2_curvy_cil.pth"
 
 evaluation:
-  # Accuracy on Task 1 (sharp) test set using model trained on Task 1
-  - name: "eval_task1_after_task1"
-    model_load_name: "model_task1_sharp.pth"
-    task_name: "sharp_digits"
-    digits: [1, 2, 4, 5, 7]
+  - name: "eval_task1_after_task1_CIL"
+    model_load_name: "model_task1_sharp_cil.pth"
+    eval_task_key: "task1" # Refers to task1.digits for evaluation data
 
-  # Accuracy on Task 2 (curvy) test set using model trained on Task 1
-  - name: "eval_task2_after_task1"
-    model_load_name: "model_task1_sharp.pth"
-    task_name: "curvy_digits"
-    digits: [0, 3, 6, 8, 9]
+  - name: "eval_task1_after_task2_CIL" 
+    model_load_name: "model_task2_curvy_cil.pth"
+    eval_task_key: "task1"
 
-  # Accuracy on Task 1 (sharp) test set using model trained on Task 1 then Task 2 (measures forgetting)
-  - name: "eval_task1_after_task2"
-    model_load_name: "model_task2_curvy.pth"
-    task_name: "sharp_digits"
-    digits: [1, 2, 4, 5, 7]
-
-  
-  # Accuracy on Task 2 (curvy) test set using model trained on Task 1 then Task 2
-  - name: "eval_task2_after_task2"
-    model_load_name: "model_task2_curvy.pth"
-    task_name: "curvy_digits"
-    digits: [0, 3, 6, 8, 9]
+  - name: "eval_task2_after_task2_CIL"
+    model_load_name: "model_task2_curvy_cil.pth"
+    eval_task_key: "task2"

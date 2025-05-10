@@ -1,0 +1,53 @@
+experiment_name: "mnist_random_split_TIL"
+learning_paradigm: "TIL" # Global flag for this experiment
+base_model_dir: "models"
+data_dir: "data"
+results_dir: "results"
+results_filename: "random_split_results.csv"
+
+# Digits from notebook with seed 327:
+# Task A: [0, 2, 3, 6, 9]
+# Task B: [1, 4, 5, 7, 8]
+digits_for_task_A: [0, 2, 3, 6, 9]
+digits_for_task_B: [1, 4, 5, 7, 8]
+
+taskA: # Corresponds to task1 in notebook for naming consistency
+  name: "TIL_Task_A_Digits"
+  digits: [0, 2, 3, 6, 9]
+  train_params:
+    epochs: 10 # As per notebook
+    lr: 0.001
+    optimizer: "RMSprop"
+    alpha: 0.9
+  model_save_name: "model_task_A_til.pth"
+  # num_classes is implicitly len(digits) = 5 for TIL
+
+taskB: # Corresponds to task2 in notebook
+  name: "TIL_Task_B_Digits"
+  digits: [1, 4, 5, 7, 8]
+  train_params:
+    epochs: 3 # As per notebook
+    lr: 0.001
+    optimizer: "RMSprop"
+    alpha: 0.9
+  model_load_name: "model_task_A_til.pth" # Load body of this, fc2 will be new
+  model_save_name: "model_task_B_til.pth"
+  # num_classes is implicitly len(digits) = 5 for TIL
+
+evaluation:
+  - name: "eval_A_on_A_after_A_training_TIL" # Evaluate Task A model on Task A data
+    model_load_name: "model_task_A_til.pth"
+    eval_task_key: "taskA" # Defines data and remapping for evaluation
+
+  - name: "eval_B_on_B_after_B_training_TIL" # Evaluate Task B model on Task B data
+    model_load_name: "model_task_B_til.pth"
+    eval_task_key: "taskB"
+
+  - name: "eval_A_on_A_after_B_training_TIL" # Forgetting: Evaluate Task A data using Task B body and Task A head
+    learning_paradigm: "TIL" # Explicitly state for this specific eval type
+    model_body_load_name: "model_task_B_til.pth" # Body from this model
+    model_head_load_name: "model_task_A_til.pth" # Head (fc2) from this model
+    head_task_key: "taskA" # Defines num_classes for the head being attached (and its original digits)
+    eval_task_key: "taskA" # Defines data and remapping for evaluation (should match head_task_key's classes)
+  
+  
