@@ -104,7 +104,6 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
         else:
             print(f"Error: Model path {load_path} not found.")
             return
-        # num_classes_for_data_loader = 10 (not strictly needed as CIL data loader doesn't remap to N<10)
     else:
         raise ValueError(f"Unsupported learning_paradigm: {experiment_paradigm}")
 

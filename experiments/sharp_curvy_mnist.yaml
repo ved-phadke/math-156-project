@@ -9,7 +9,7 @@ task1:
   name: "sharp_digits_CIL"
   digits: [1,2, 4, 5, 7] 
   train_params:
-    epochs: 5
+    epochs: 100
     lr: 0.001
     batch_size: 128
     optimizer: "RMSprop"
@@ -19,12 +19,23 @@ task2:
   name: "curvy_digits_CIL"
   digits: [0, 3, 6, 8, 9] 
   train_params:
-    epochs: 5
+    epochs: 1
     lr: 0.001
     batch_size: 128
     optimizer: "RMSprop"
   model_load_name: "model_task1_sharp_cil.pth" 
   model_save_name: "model_task2_curvy_cil.pth"
+
+task3:
+  name: "all_digits_CIL"
+  digits: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  train_params:
+    epochs: 1
+    lr: 0.001
+    batch_size: 128
+    optimizer: "RMSprop"
+  model_load_name: "model_task2_curvy_cil.pth"
+
 
 evaluation:
   - name: "eval_task1_after_task1_CIL"
@@ -42,3 +53,7 @@ evaluation:
   - name: "eval_task2_after_task2_CIL"
     model_load_name: "model_task2_curvy_cil.pth"
     eval_task_key: "task2"
+  
+  - name: "eval_task3_after_task2_CIL"
+    model_load_name: "model_task2_curvy_cil.pth"
+    eval_task_key: "task3" # Refers to task3.digits for evaluation data

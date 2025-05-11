@@ -114,6 +114,7 @@ def train_task(config_path, task_key_to_train, learning_paradigm_arg):
             outputs = model(inputs)
             loss = criterion(outputs, labels)
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), task_config['train_params'].get('max_grad_norm', 1.0))
             optimizer.step()
             running_loss += loss.item()
             if (i + 1) % 100 == 0:
