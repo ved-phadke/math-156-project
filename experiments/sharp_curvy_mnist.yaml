@@ -9,8 +9,9 @@ task1:
   name: "sharp_digits_CIL"
   digits: [1,2, 4, 5, 7] 
   train_params:
-    epochs: 1
+    epochs: 5
     lr: 0.001
+    batch_size: 128
     optimizer: "RMSprop"
   model_save_name: "model_task1_sharp_cil.pth"
 
@@ -18,8 +19,9 @@ task2:
   name: "curvy_digits_CIL"
   digits: [0, 3, 6, 8, 9] 
   train_params:
-    epochs: 1
+    epochs: 5
     lr: 0.001
+    batch_size: 128
     optimizer: "RMSprop"
   model_load_name: "model_task1_sharp_cil.pth" 
   model_save_name: "model_task2_curvy_cil.pth"
