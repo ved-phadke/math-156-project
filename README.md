@@ -27,7 +27,7 @@ The `experiments/sharp_curvy_mnist.yaml` defines two training tasks and four eva
 **2. Train on Task 2 (Curvy Digits):**
    Run command
    ```bash
-   python src/train.py --config experiments/sharp_curvy_mnist.yaml --task task1
+   python src/train.py --config experiments/sharp_curvy_mnist.yaml --task task2
    ```
 **3. Eval on Task 1 with Task 1 model**
    ```bash

@@ -1,0 +1,4 @@
+eval_task1_after_task1,first_split,"[0, 2, 5, 8, 9]",0.016285370989576484,99.38612645794966
+eval_task2_after_task1,second_split,"[1, 3, 4, 6, 7]",13.02353561076077,0.0
+eval_task1_after_task2,first_split,"[0, 2, 5, 8, 9]",11.949104030024476,0.0
+eval_task2_after_task2,second_split,"[1, 3, 4, 6, 7]",0.01512315047598112,99.60884021122628

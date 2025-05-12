@@ -1,6 +1,9 @@
 import argparse
 import yaml
+import copy
+from collections import defaultdict
 import torch
+import torch.nn.functional as F
 import torch.optim as optim
 import torch.nn as nn
 import os
@@ -59,8 +62,84 @@ def train_task(config_path, task_key):
     else:
         print(f"Unsupported optimizer: {optimizer_name}. Defaulting to SGD.")
         optimizer = optim.SGD(model.parameters(), lr=lr)
+
+    criterion = None
+
+    use_ewc = task_config['train_params'].get('ewc', False)
+
+    if use_ewc:
+        ewc_lambda = task_config['train_params'].get('ewc_lambda', 1)
+
+        params_A = {name: param.clone().detach() for name, param in model.named_parameters() if param.requires_grad}
+
+        def compute_fisher(model, data_loader, num_samples=2000):
+            fisher = defaultdict(float)
+            model.eval()
+            
+            total_seen = 0
+            
+            for inputs, targets in data_loader:
+                batch_size = inputs.size(0)
+                if total_seen >= num_samples:
+                    break
+                
+                if total_seen + batch_size > num_samples:
+                    batch_size = num_samples - total_seen
+                    inputs, targets = inputs[:batch_size], targets[:batch_size]
         
-    criterion = nn.CrossEntropyLoss()
+                inputs, targets = inputs.to(device), targets.to(device)
+                model.zero_grad()
+                outputs = model(inputs)
+                log_probs = F.log_softmax(outputs, dim=1)
+                loss = F.nll_loss(log_probs, targets)
+                loss.backward()
+        
+                for name, param in model.named_parameters():
+                    if param.grad is not None:
+                        fisher[name] += (param.grad.detach() ** 2) * batch_size
+                
+                total_seen += batch_size
+        
+            for name in fisher:
+                fisher[name] /= total_seen
+        
+            return fisher
+
+        task_a_loader, _ = get_filtered_mnist_dataloaders(
+            config['task1']['digits'],
+            batch_size_train=config['task1']['train_params'].get('batch_size', 128),
+            data_root='./data'
+        )
+
+        print(f"Computing Fisher coefficients for model {task_config.get('model_load_name')}")
+        fisher_A = compute_fisher(model, task_a_loader)
+
+        def ewc_loss(model, loss_taskB):
+            ewc_reg = 0.0
+            for name, param in model.named_parameters():
+                if param.requires_grad:
+                    ewc_reg += (fisher_A[name] * (param - params_A[name]) ** 2).sum()
+            return loss_taskB + (ewc_lambda / 2) * ewc_reg
+
+    if task_config['train_params'].get('use_masked_training', False):
+        def masked_cross_entropy(logits, targets):
+            """
+            logits: [batch_size, 10]
+            targets: [batch_size] with values in valid classes
+            """
+            # Mask irrelevant logits
+            mask = torch.zeros_like(logits)
+            mask[:, task_config['digits']] = 1
+            masked_logits = logits * mask
+        
+            # Re-normalize masked logits
+            masked_probs = F.log_softmax(masked_logits, dim=1)
+        
+            return F.nll_loss(masked_probs, targets)
+
+        criterion = masked_cross_entropy
+    else:
+        criterion = nn.CrossEntropyLoss()
 
     # Training Loop
     model.train()
@@ -73,6 +152,9 @@ def train_task(config_path, task_key):
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, labels)
+
+            if use_ewc:
+                loss = ewc_loss(model, loss)
             loss.backward()
             optimizer.step()
 
