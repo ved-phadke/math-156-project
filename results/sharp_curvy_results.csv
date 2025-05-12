@@ -1,0 +1,25 @@
+EvaluationName,Paradigm,EvaluatedDigits,TestLoss,Accuracy,Correct,Total,ModelLoaded
+eval_task1_after_task1_CIL,CIL,"[1, 2, 4, 5, 7]",0.0074,99.74,5056,5069,model_task1_sharp_cil.pth
+eval_task2_after_task1_CIL,CIL,"[0, 3, 6, 8, 9]",22.6837,0.00,0,4931,model_task1_sharp_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",16.5621,0.00,0,5069,model_task2_curvy_cil.pth
+eval_task2_after_task2_CIL,CIL,"[0, 3, 6, 8, 9]",0.0302,99.23,4893,4931,model_task2_curvy_cil.pth
+eval_task1_after_task1_CIL,CIL,"[1, 2, 4, 5, 7]",0.0206,99.63,5050,5069,model_task1_sharp_cil.pth
+eval_task2_after_task1_CIL,CIL,"[0, 3, 6, 8, 9]",30.1366,0.00,0,4931,model_task1_sharp_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",23.8073,0.00,0,5069,model_task2_curvy_cil.pth
+eval_task2_after_task2_CIL,CIL,"[0, 3, 6, 8, 9]",0.0283,99.21,4892,4931,model_task2_curvy_cil.pth
+eval_task1_after_task1_CIL,CIL,"[1, 2, 4, 5, 7]",0.0190,99.31,5034,5069,model_task1_sharp_cil.pth
+eval_task2_after_task1_CIL,CIL,"[0, 3, 6, 8, 9]",20.5197,0.00,0,4931,model_task1_sharp_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",18.7241,0.00,0,5069,model_task2_curvy_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",13.8600,0.00,0,5069,model_task2_curvy_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",21.6324,0.00,0,5069,model_task2_curvy_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",10.7794,0.00,0,5069,model_task2_curvy_cil.pth
+eval_task2_after_task2_CIL,CIL,"[0, 3, 6, 8, 9]",0.0247,99.23,4893,4931,model_task2_curvy_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",11.3131,0.08,4,5069,model_task2_curvy_cil.pth
+eval_task3_after_task2_CIL,CIL,"[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]",5.7413,49.09,4909,10000,model_task2_curvy_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",11.4850,4.64,235,5069,model_task2_curvy_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",10.1203,20.89,1059,5069,model_task2_curvy_cil.pth
+eval_task3_after_task2_CIL,CIL,"[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]",5.1387,59.62,5962,10000,model_task2_curvy_cil.pth
+eval_task2_after_task2_CIL,CIL,"[0, 3, 6, 8, 9]",0.0177,99.43,4903,4931,model_task2_curvy_cil.pth
+eval_task2_after_task2_CIL,CIL,"[0, 3, 6, 8, 9]",0.0096,99.68,4915,4931,model_task2_curvy_cil.pth
+eval_task1_after_task2_CIL,CIL,"[1, 2, 4, 5, 7]",16.7122,1.68,85,5069,model_task2_curvy_cil.pth
+eval_task3_after_task2_CIL,CIL,"[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]",8.4762,50.00,5000,10000,model_task2_curvy_cil.pth
