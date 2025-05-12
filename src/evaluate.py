@@ -131,6 +131,14 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
         for images, labels in test_loader:
             images, labels = images.to(device), labels.to(device)
             outputs = model(images)
+
+            # Bias correction for CIL
+            if experiment_paradigm == "CIL" and 'bias_correction' in eval_entry_config:
+                bias  = eval_entry_config.get('bias_correction', 0.0)
+                task1_digits = config['task1']['digits']
+                for digit in task1_digits:
+                    outputs[:, digit] += bias
+
             loss = criterion(outputs, labels)
             test_loss += loss.item() * images.size(0)
             _, predicted = torch.max(outputs.data, 1)

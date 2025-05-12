@@ -49,6 +49,7 @@ evaluation:
   - name: "eval_task1_after_task2_CIL" 
     model_load_name: "model_task2_curvy_cil.pth"
     eval_task_key: "task1"
+    bias_correction: 5.0
 
   - name: "eval_task2_after_task2_CIL"
     model_load_name: "model_task2_curvy_cil.pth"
