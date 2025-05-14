@@ -1,0 +1,4 @@
+EvaluationName,Paradigm,EvaluatedDigits,TestLoss,Accuracy,Correct,Total,ModelLoaded
+eval_A_on_A_after_A,TIL,"[1, 2, 4, 5, 7]",0.0101,99.70,5054,5069,model_task_A_sharp.pth
+eval_B_on_B_after_B,TIL,"[0, 3]",0.0003,100.00,1990,1990,model_task_B_curvy_2_digits.pth
+eval_A_on_A_after_B,TIL,"[1, 2, 4, 5, 7]",0.7997,87.85,4453,5069,Body:model_task_B_curvy_2_digits.pth_Head:model_task_A_sharp.pth

@@ -1,0 +1,47 @@
+experiment_name: "mnist_iterative_TIL"
+learning_paradigm: "TIL"
+base_model_dir: "models"
+data_dir: "data"
+results_dir: "results"
+results_filename: "iterative_results.csv"
+
+# Define the digits in each task
+digits_for_task_A: [1, 2, 4, 5, 7]
+digits_for_task_B: [0, 3]
+
+taskA:
+  name: "TIL_Task_A_Sharp"
+  digits: [1, 2, 4, 5, 7]
+  train_params:
+    epochs: 10
+    lr: 0.001
+    optimizer: "RMSprop"
+    alpha: 0.9
+  model_save_name: "model_task_A_sharp.pth"
+
+taskB:
+  name: "TIL_Task_B_Curvy_2_digits"
+  digits: [0, 3]
+  train_params:
+    epochs: 5
+    lr: 0.001
+    optimizer: "RMSprop"
+    alpha: 0.9
+  model_load_name: "model_task_A_sharp.pth"
+  model_save_name: "model_task_B_curvy_2_digits.pth"
+
+evaluation:
+  # After Task A
+  - name: "eval_A_on_A_after_A"
+    model_load_name: "model_task_A_sharp.pth"
+    eval_task_key: "taskA"
+
+  # After Task B
+  - name: "eval_B_on_B_after_B"
+    model_load_name: "model_task_B_curvy_2_digits.pth"
+    eval_task_key: "taskB"
+  - name: "eval_A_on_A_after_B"        # forgetting on Task A
+    model_body_load_name: "model_task_B_curvy_2_digits.pth"
+    model_head_load_name: "model_task_A_sharp.pth"
+    head_task_key: "taskA"
+    eval_task_key: "taskA"
