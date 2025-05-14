@@ -27,23 +27,23 @@ evaluation:
   - name: "eval_task1_after_task1"
     model_load_name: "model_task1_random.pth"
     task_name: "first_split"
-    digits: [0, 2, 5, 8, 9]
+    eval_task_key: "task1"
 
   # Accuracy on Task 2 test set using model trained on Task 1
   - name: "eval_task2_after_task1"
     model_load_name: "model_task1_random.pth"
     task_name: "second_split"
-    digits: [1, 3, 4, 6, 7]
+    eval_task_key: "task2"
 
   # Accuracy on Task 1 test set using model trained on Task 1 then Task 2 (measures forgetting)
   - name: "eval_task1_after_task2"
     model_load_name: "model_task2_random.pth"
     task_name: "first_split"
-    digits: [0, 2, 5, 8, 9]
+    eval_task_key: "task1"
 
   
   # Accuracy on Task 2 test set using model trained on Task 1 then Task 2
   - name: "eval_task2_after_task2"
     model_load_name: "model_task2_random.pth"
     task_name: "second_split"
-    digits: [1, 3, 4, 6, 7]
+    eval_task_key: "task2"
