@@ -1,0 +1,6 @@
+experiment_name,epochs,ewc,masked_training,eval_task1_after_task1,eval_task2_after_task1,eval_task1_after_task2,eval_task2_after_task2
+iterative_epochs1_ewcFalse_maskedFalse,1,False,False,N/A,N/A,N/A,N/A
+iterative_epochs1_ewcFalse_maskedTrue,1,False,True,N/A,N/A,N/A,N/A
+iterative_epochs1_ewcTrue_maskedFalse,1,True,False,N/A,N/A,N/A,N/A
+iterative_epochs1_ewcTrue_maskedTrue,1,True,True,N/A,N/A,N/A,N/A
+iterative_epochs3_ewcFalse_maskedFalse,3,False,False,N/A,N/A,N/A,N/A
