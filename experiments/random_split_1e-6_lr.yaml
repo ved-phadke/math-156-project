@@ -1,0 +1,59 @@
+experiment_name: "random_split"
+learning_paradigm: "CIL"
+base_model_path: "models"
+data_dir: "data"
+results_dir: "results"
+results_filename: "random_split_1e-6_lr_results.csv"
+
+task1:
+  name: "first_split"
+  digits: [0, 2, 5, 8, 9]
+  train_params:
+    epochs: 5
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+  model_save_name: "model_task1_random.pth"
+
+task2:
+  name: "second_split"
+  digits: [1, 3, 4, 6, 7]
+  train_params:
+    epochs: 1
+    lr: 0.000001
+    optimizer: "RMSprop"
+    batch_size: 128
+  model_load_name: "model_task1_random.pth" # Load model trained on Task 1
+  model_save_name: "model_task2_random_lr_1e-6.pth"
+
+# To evaluate on all digits
+task3:
+  name: "all_digits"
+  digits: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+evaluation:
+  # Accuracy on Task 1 test set using model trained on Task 1
+  - name: "eval_task1_after_task1"
+    model_load_name: "model_task1_random.pth"
+    eval_task_key: "task1"
+
+  # Accuracy on Task 2 test set using model trained on Task 1
+  - name: "eval_task2_after_task1"
+    model_load_name: "model_task1_random.pth"
+    eval_task_key: "task2"
+
+  # Accuracy on Task 1 test set using model trained on Task 1 then Task 2 (measures forgetting)
+  - name: "eval_task1_after_task2"
+    model_load_name: "model_task2_random_lr_1e-6.pth"
+    eval_task_key: "task1"
+
+  
+  # Accuracy on Task 2 test set using model trained on Task 1 then Task 2
+  - name: "eval_task2_after_task2"
+    model_load_name: "model_task2_random_lr_1e-6.pth"
+    eval_task_key: "task2"
+
+  # Accuracy on Task 3 test set using model trained on Task 1 then Task 2
+  - name: "eval_task3_after_task2"
+    model_load_name: "model_task2_random_lr_1e-6.pth"
+    eval_task_key: "task3"
