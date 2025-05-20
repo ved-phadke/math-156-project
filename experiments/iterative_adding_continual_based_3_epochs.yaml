@@ -1,0 +1,129 @@
+experiment_name: "til_iterative_adding_continual_based_3_epochs"
+base_model_dir: "models/"
+results_dir: "results/"
+results_filename: "results_til_iterative_adding_continual_based_3_epochs.csv"
+learning_paradigm: "TIL"
+
+task1:
+  name: "initial_five"
+  digits: [1, 2, 4, 5, 7]
+  train_params:
+    epochs: 5
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+    use_masked_training: true
+  model_save_name: "til_model_task1.pth"
+
+task2:
+  name: "only_0"
+  digits: [0]
+  train_params:
+    epochs: 3
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+    use_masked_training: true
+  model_load_name: "til_model_task1.pth"
+  model_save_name: "single_til_model_task2_3_epochs.pth"
+
+task3:
+  name: "only_3"
+  digits: [3]
+  train_params:
+    epochs: 3
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+    use_masked_training: true
+  model_load_name: "single_til_model_task2_3_epochs.pth"
+  model_save_name: "single_til_model_task3_3_epochs.pth"
+
+task4:
+  name: "only_6"
+  digits: [6]
+  train_params:
+    epochs: 3
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+    use_masked_training: true
+  model_load_name: "single_til_model_task3_3_epochs.pth"
+  model_save_name: "single_til_model_task4_3_epochs.pth"
+
+task5:
+  name: "only_8"
+  digits: [8]
+  train_params:
+    epochs: 3
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+    use_masked_training: true
+  model_load_name: "single_til_model_task4_3_epochs.pth"
+  model_save_name: "single_til_model_task5_3_epochs.pth"
+
+task6:
+  name: "only_9"
+  digits: [9]
+  train_params:
+    epochs: 3
+    lr: 0.001
+    optimizer: "RMSprop"
+    batch_size: 128
+    use_masked_training: true
+  model_load_name: "single_til_model_task5_3_epochs.pth"
+  model_save_name: "single_til_model_task6_3_epochs.pth"
+  
+task_final_new_digits:
+  name: "final_new_digits_joint"
+  digits: [0, 3, 6, 8, 9]
+  train_params:
+    epochs: 0  
+  model_body_load_name: "single_til_model_task6_3_epochs.pth"   
+  model_head_load_name: "til_model_head_final_new_digits_3_epochs.pth" 
+  model_save_name: "til_model_head_final_new_digits_3_epochs.pth"     
+
+evaluation:
+  - name: "eval_task1_after_task1"
+    model_load_name: "til_model_task1.pth"
+    eval_task_key: "task1"
+
+  - name: "eval_task1_after_task2"
+    model_body_load_name: "single_til_model_task2_3_epochs.pth"   
+    model_head_load_name: "til_model_task1.pth"    
+    eval_task_key: "task1"
+    head_task_key: "task1" 
+
+  - name: "eval_task1_after_task3"
+    model_body_load_name: "single_til_model_task3_3_epochs.pth"   
+    model_head_load_name: "til_model_task1.pth"    
+    eval_task_key: "task1"
+    head_task_key: "task1" 
+
+  - name: "eval_task1_after_task4"
+    model_body_load_name: "single_til_model_task4_3_epochs.pth"   
+    model_head_load_name: "til_model_task1.pth"    
+    eval_task_key: "task1"
+    head_task_key: "task1" 
+
+  - name: "eval_task1_after_task5"
+    model_body_load_name: "single_til_model_task5_3_epochs.pth"   
+    model_head_load_name: "til_model_task1.pth"    
+    eval_task_key: "task1"
+    head_task_key: "task1" 
+
+  - name: "eval_task1_after_task6"
+    model_body_load_name: "single_til_model_task6_3_epochs.pth"   
+    model_head_load_name: "til_model_task1.pth"    
+    eval_task_key: "task1"
+    head_task_key: "task1" 
+
+  - name: "eval_new_digits_final_model"
+    model_body_load_name: "single_til_model_task6_3_epochs.pth"
+    model_head_load_name: "til_model_head_final_new_digits_3_epochs.pth"
+    eval_task_key: "final_new_digits"
+    head_task_key: "task_final_new_digits"
+
+final_new_digits:
+  digits: [0, 3, 6, 8, 9]    

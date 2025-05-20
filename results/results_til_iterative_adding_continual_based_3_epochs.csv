@@ -1,0 +1,7 @@
+EvaluationName,Paradigm,EvaluatedDigits,TestLoss,Accuracy,Correct,Total,ModelLoaded
+eval_task1_after_task2,TIL,"[1, 2, 4, 5, 7]",0.0133,99.63,5050,5069,Body:single_til_model_task2_3_epochs.pth_Head:til_model_task1.pth
+eval_task1_after_task3,TIL,"[1, 2, 4, 5, 7]",0.0133,99.63,5050,5069,Body:single_til_model_task3_3_epochs.pth_Head:til_model_task1.pth
+eval_task1_after_task4,TIL,"[1, 2, 4, 5, 7]",0.0133,99.63,5050,5069,Body:single_til_model_task4_3_epochs.pth_Head:til_model_task1.pth
+eval_task1_after_task5,TIL,"[1, 2, 4, 5, 7]",0.0133,99.63,5050,5069,Body:single_til_model_task5_3_epochs.pth_Head:til_model_task1.pth
+eval_task1_after_task6,TIL,"[1, 2, 4, 5, 7]",0.0133,99.63,5050,5069,Body:single_til_model_task6_3_epochs.pth_Head:til_model_task1.pth
+eval_new_digits_final_model,TIL,"[0, 3, 6, 8, 9]",1.5330,22.00,1085,4931,Body:single_til_model_task6_3_epochs.pth_Head:til_model_head_final_new_digits_3_epochs.pth

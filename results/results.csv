@@ -4,3 +4,11 @@ iterative_epochs1_ewcFalse_maskedTrue,1,False,True,N/A,N/A,N/A,N/A
 iterative_epochs1_ewcTrue_maskedFalse,1,True,False,N/A,N/A,N/A,N/A
 iterative_epochs1_ewcTrue_maskedTrue,1,True,True,N/A,N/A,N/A,N/A
 iterative_epochs3_ewcFalse_maskedFalse,3,False,False,N/A,N/A,N/A,N/A
+eval_task1_after_task1,CIL,"[1, 2, 4, 5, 7]",0.0112,99.72,5055,5069,model_task1_3_iterative_masked.pth
+eval_task2_after_task1,CIL,"[1, 2, 4, 5, 7]",0.0112,99.72,5055,5069,model_task1_3_iterative_masked.pth
+eval_task2_after_task1,CIL,"[0, 3, 8]",9.7069,0.00,0,2964,model_task1_3_iterative_masked.pth
+eval_task1_after_task2,CIL,"[1, 2, 4, 5, 7]",0.1330,96.07,4870,5069,model_task2_3_iterative_masked_1_epoch.pth
+eval_task2_after_task2,CIL,"[0, 3, 8]",0.2511,93.02,2757,2964,model_task2_3_iterative_masked_1_epoch.pth
+eval_task1_after_task1,CIL,"[1, 2, 4, 5, 7]",0.0112,99.72,5055,5069,model_task1_3_iterative_masked.pth
+eval_task2_after_task2,CIL,"[0, 3, 8]",0.0442,98.68,2925,2964,model_task2_3_iterative_masked_1_epoch.pth
+eval_task1_after_task2,CIL,"[1, 2, 4, 5, 7]",0.5172,84.20,4268,5069,model_task2_3_iterative_masked_1_epoch.pth
