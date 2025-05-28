@@ -1,0 +1,16 @@
+EvaluationName,Paradigm,EvaluatedDigits,TestLoss,Accuracy,Correct,Total,ModelLoaded
+eval_task1_after_task2,TIL,"[1, 2, 4, 5, 7]",0.2104,94.87,4809,5069,Body:2digits_til_model_task2.pth_Head:til_model_task1.pth
+eval_task1_after_task3,TIL,"[1, 2, 4, 5, 7]",0.0578,98.36,4986,5069,Body:3digits_til_model_task3.pth_Head:til_model_task1.pth
+eval_new_digits_final_model,TIL,"[0, 3, 6, 8, 9]",1.5148,34.46,1699,4931,Body:3digits_til_model_task3.pth_Head:til_model_head_final_new_digits.pth
+eval_task1_after_task2,TIL,"[1, 2, 4, 5, 7]",1.6631,21.29,1079,5069,Body:2digits_til_model_task2 3.pth_Head:til_model_task1.pth
+eval_task1_after_task3,TIL,"[1, 2, 4, 5, 7]",1.8544,7.54,382,5069,Body:3digits_til_model_task3 2.pth_Head:til_model_task1.pth
+eval_new_digits_final_model,TIL,"[0, 3, 6, 8, 9]",1.6843,11.52,568,4931,Body:3digits_til_model_task3 2.pth_Head:til_model_head_final_new_digits 2.pth
+eval_task1_after_task2,TIL,"[1, 2, 4, 5, 7]",0.1671,96.15,4874,5069,Body:2digits_til_model_task2_2epoch.pth_Head:til_model_task1.pth
+eval_task1_after_task3,TIL,"[1, 2, 4, 5, 7]",0.1534,95.66,4849,5069,Body:3digits_til_model_task3_2epoch.pth_Head:til_model_task1.pth
+eval_new_digits_final_model,TIL,"[0, 3, 6, 8, 9]",1.5148,25.45,1255,4931,Body:3digits_til_model_task3_2epoch.pth_Head:til_model_head_final_new_digits_2epoch.pth
+eval_task1_after_task2,TIL,"[1, 2, 4, 5, 7]",1.5806,19.43,985,5069,Body:2digits_til_model_task2_3epoch.pth_Head:til_model_task1.pth
+eval_task1_after_task3,TIL,"[1, 2, 4, 5, 7]",1.6480,16.99,861,5069,Body:3digits_til_model_task3_3epoch.pth_Head:til_model_task1.pth
+eval_new_digits_final_model,TIL,"[0, 3, 6, 8, 9]",1.8995,8.31,410,4931,Body:3digits_til_model_task3_3epoch.pth_Head:til_model_head_final_new_digits_3epoch.pth
+eval_task1_after_task2,TIL,"[1, 2, 4, 5, 7]",0.0674,98.56,4996,5069,Body:2digits_til_model_task2_lowlr.pth_Head:til_model_task1.pth
+eval_task1_after_task3,TIL,"[1, 2, 4, 5, 7]",0.0551,98.86,5011,5069,Body:3digits_til_model_task3_lowlr.pth_Head:til_model_task1.pth
+eval_new_digits_final_model,TIL,"[0, 3, 6, 8, 9]",1.5809,20.52,1012,4931,Body:3digits_til_model_task3_lowlr.pth_Head:til_model_head_final_new_digits 3.pth
