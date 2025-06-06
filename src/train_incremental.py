@@ -9,7 +9,6 @@ import torch.nn as nn
 import os
 import sys
 
-# Add project root to Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
@@ -56,7 +55,6 @@ def main():
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     print(f"[ i ] Device: {device}")
 
-    # collect tasks in order: task1, task2, ...
     tasks = [(k, cfg[k]) for k in cfg if k.startswith('task')]
     tasks.sort(key=lambda kv: kv[0])  # ensure task1, task2, …
 

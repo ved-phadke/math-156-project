@@ -1,0 +1,17 @@
+EvaluationName,Paradigm,EvaluatedDigits,TestLoss,Accuracy,Correct,Total,ModelLoaded
+eval_task1_after_task1,TIL,"[0, 1, 2, 3, 4]",0.0075,99.77,5127,5139,incremental_add_one_task1.pth
+eval_task1_after_task2,TIL,"[0, 1, 2, 3, 4]",5.2881,7.41,381,5139,incremental_add_one_task2.pth
+eval_task1_after_task3,TIL,"[0, 1, 2, 3, 4]",13.3659,0.00,0,5139,incremental_add_one_task3.pth
+eval_task1_after_task4,TIL,"[0, 1, 2, 3, 4]",14.1699,0.00,0,5139,incremental_add_one_task4.pth
+eval_task1_after_task5,TIL,"[0, 1, 2, 3, 4]",22.4880,0.00,0,5139,incremental_add_one_task5.pth
+eval_task1_after_task6,TIL,"[0, 1, 2, 3, 4]",43.3193,0.00,0,5139,incremental_add_one_task6.pth
+eval_task2_new,TIL,[5],14.0085,0.00,0,892,incremental_add_one_task2.pth
+eval_task3_new,TIL,[6],20.8924,0.00,0,958,incremental_add_one_task3.pth
+eval_task4_new,TIL,[7],17.9371,0.00,0,1028,incremental_add_one_task4.pth
+eval_task5_new,TIL,[8],29.9437,0.00,0,974,incremental_add_one_task5.pth
+eval_task6_new,TIL,[9],50.8122,0.00,0,1009,incremental_add_one_task6.pth
+eval_cumul_after_task2,TIL,"[0, 1, 2, 3, 4, 5]",4.5060,21.11,1273,6031,incremental_add_one_task2.pth
+eval_cumul_after_task3,TIL,"[0, 1, 2, 3, 4, 5, 6]",11.6311,13.71,958,6989,incremental_add_one_task3.pth
+eval_cumul_after_task4,TIL,"[0, 1, 2, 3, 4, 5, 6, 7]",12.1010,12.82,1028,8017,incremental_add_one_task4.pth
+eval_cumul_after_task5,TIL,"[0, 1, 2, 3, 4, 5, 6, 7, 8]",18.0221,10.83,974,8991,incremental_add_one_task5.pth
+eval_all_after_task6,TIL,"[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]",32.7673,10.09,1009,10000,incremental_add_one_task6.pth

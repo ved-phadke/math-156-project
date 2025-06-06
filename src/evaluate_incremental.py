@@ -33,11 +33,8 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
 
-    # Determine num_classes for model and data
-    # For data loader:
     eval_digits = config[eval_entry_config['eval_task_key']]['digits']
     
-    # For model:
     base_model_dir = os.path.join(project_root, config.get('base_model_dir', 'models'))
 
     if experiment_paradigm == "TIL":
@@ -68,7 +65,6 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
             if os.path.exists(head_load_path):
                 print(f"Loading head (fc2) from: {head_load_path}")
                 head_state_dict = torch.load(head_load_path, map_location=device)
-                # Copy only fc2 from head_state_dict
                 if 'fc2.weight' in head_state_dict and 'fc2.bias' in head_state_dict:
                     if model.fc2.weight.shape == head_state_dict['fc2.weight'].shape:
                         model.fc2.weight.data.copy_(head_state_dict['fc2.weight'])
@@ -84,7 +80,6 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
                 return
             num_classes_for_data_loader = num_classes_for_head # Data remapped to head's classes
         else:  # Standard TIL evaluation
-            # 1) Figure out how many outputs the saved model actually has
             load_path = os.path.join(base_model_dir, eval_entry_config['model_load_name'])
             if not os.path.exists(load_path):
                 print(f"Error: Model path {load_path} not found.")
@@ -94,11 +89,9 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
             state = torch.load(load_path, map_location=device)
             true_head_size = state['fc2.weight'].size(0)
 
-            # 2) Instantiate a model with that exact head size, and load it
             model = BaselineClassifier(num_classes=true_head_size).to(device)
             model.load_state_dict(state)
 
-            # 3) Prepare a test loader that only contains eval_task_key's digits
             eval_task_key = eval_entry_config['eval_task_key']
             digits_to_eval = config[eval_task_key]['digits']
             _, test_loader = get_filtered_mnist_dataloaders(
@@ -109,7 +102,7 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
             )
             
     elif experiment_paradigm == "CIL":
-        model = BaselineClassifier(num_classes=10).to(device) # CIL MNIST always 10 classes
+        model = BaselineClassifier(num_classes=10).to(device)
         load_path = os.path.join(base_model_dir, eval_entry_config['model_load_name'])
         if os.path.exists(load_path):
             print(f"Loading model from {load_path}")
@@ -120,9 +113,7 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
     else:
         raise ValueError(f"Unsupported learning_paradigm: {experiment_paradigm}")
 
-    # Data Loader
     print(f"Loading evaluation data for digits: {eval_digits}")
-    # Determine if labels should be remapped based on the paradigm
     should_remap_labels_eval = True if experiment_paradigm == "TIL" else False
     print(f"Remapping labels for evaluation: {should_remap_labels_eval} (Paradigm: {experiment_paradigm})")
 
@@ -137,7 +128,7 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
     model.eval()
     correct = 0
     total = 0
-    criterion = nn.CrossEntropyLoss() # For calculating loss if needed, not strictly for accuracy
+    criterion = nn.CrossEntropyLoss()
     test_loss = 0.0
 
     with torch.no_grad():
@@ -145,7 +136,6 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
             images, labels = images.to(device), labels.to(device)
             outputs = model(images)
 
-            # Bias correction for CIL
             if experiment_paradigm == "CIL" and 'bias_correction' in eval_entry_config:
                 bias  = eval_entry_config.get('bias_correction', 0.0)
                 task1_digits = config['task1']['digits']
@@ -179,7 +169,7 @@ def evaluate_task(config_path, eval_name_key, learning_paradigm_arg):
     file_exists = os.path.isfile(results_file)
     with open(results_file, mode='a', newline='') as file:
         writer = csv.writer(file)
-        if not file_exists: # Write header if new file
+        if not file_exists:
             writer.writerow(["EvaluationName", "Paradigm", "EvaluatedDigits", "TestLoss", "Accuracy", "Correct", "Total", "ModelLoaded"])
         
         model_info = eval_entry_config.get('model_load_name', 

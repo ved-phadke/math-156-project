@@ -1,7 +1,7 @@
-experiment_name: "incremental_add_one"
+experiment_name: "incremental_add_one_epochs_1_lr_1e-3"
 base_model_dir: "models/"
 results_dir: "results/"
-results_filename: "results_incremental_add_one.csv"
+results_filename: "results_incremental_add_one_epochs_1_lr_1e-3.csv"
 learning_paradigm: "TIL"
 
 # ─── Stage 1: initial training on digits 0–4 ────────────────────────────────
@@ -9,8 +9,8 @@ task1:
   name: "initial_0-4"
   digits: [0, 1, 2, 3, 4]
   train_params:
-    epochs: 5
-    lr: 1e-4
+    epochs: 3
+    lr: 0.001
     optimizer: "RMSprop"
     batch_size: 128
     use_masked_training: false
@@ -21,8 +21,8 @@ task2:
   name: "add_5"
   digits: [5]
   train_params:
-    epochs: 2
-    lr: 1e-5
+    epochs: 1
+    lr: 1e-3
     optimizer: "RMSprop"
     batch_size: 128
     use_masked_training: false
@@ -34,8 +34,8 @@ task3:
   name: "add_6"
   digits: [6]
   train_params:
-    epochs: 2
-    lr: 1e-5
+    epochs: 1
+    lr: 1e-3
     optimizer: "RMSprop"
     batch_size: 128
     use_masked_training: false
@@ -47,8 +47,8 @@ task4:
   name: "add_7"
   digits: [7]
   train_params:
-    epochs: 2
-    lr: 1e-5
+    epochs: 1
+    lr: 1e-3
     optimizer: "RMSprop"
     batch_size: 128
     use_masked_training: false
@@ -60,8 +60,8 @@ task5:
   name: "add_8"
   digits: [8]
   train_params:
-    epochs: 2
-    lr: 1e-5
+    epochs: 1
+    lr: 1e-3
     optimizer: "RMSprop"
     batch_size: 128
     use_masked_training: false
@@ -73,8 +73,8 @@ task6:
   name: "add_9"
   digits: [9]
   train_params:
-    epochs: 2
-    lr: 1e-5
+    epochs: 1
+    lr: 1e-3
     optimizer: "RMSprop"
     batch_size: 128
     use_masked_training: false
