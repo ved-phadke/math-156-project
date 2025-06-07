@@ -33,3 +33,22 @@ class BaselineClassifier(nn.Module):
         x = self.fc2(x)
 
         return x
+    
+    def add_classes(self, k):
+        """
+        Expand the final linear by k new outputs
+        """
+        W_old = self.fc2.weight.data
+        b_old = self.fc2.bias.data
+        old_nc, feat_dim = W_old.shape
+
+        # make a new head with _old_nc + k outputs
+        new_head = nn.Linear(feat_dim, old_nc + k)
+
+        with torch.no_grad():
+            # copy existing weights/biases
+            new_head.weight[:old_nc].copy_(W_old)
+            new_head.bias[:old_nc].copy_(b_old)
+            # new_head.weight[old_nc:] is freshly initialized
+        
+        self.fc2 = new_head
