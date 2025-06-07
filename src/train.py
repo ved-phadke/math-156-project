@@ -162,22 +162,17 @@ def train_task(config_path, task_key_to_train, learning_paradigm_arg):
             return loss_taskB + (ewc_lambda / 2) * ewc_reg
 
     if task_config['train_params'].get('use_masked_training', False):
-        def masked_cross_entropy(logits, targets):
-            """
-            logits: [batch_size, 10]
-            targets: [batch_size] with values in valid classes
-            """
-            # Mask irrelevant logits
-            mask = torch.zeros_like(logits)
-            mask[:, task_config['digits']] = 1
-            masked_logits = logits * mask
-        
-            # Re-normalize masked logits
-            masked_probs = F.log_softmax(masked_logits, dim=1)
-        
-            return F.nll_loss(masked_probs, targets)
-
-        criterion = masked_cross_entropy
+        if experiment_paradigm == "CIL":
+            def masked_cross_entropy(logits, targets):
+                mask = torch.zeros_like(logits)
+                mask[:, task_config['digits']] = 1
+                masked_logits = logits * mask
+                masked_probs = F.log_softmax(masked_logits, dim=1)
+                return F.nll_loss(masked_probs, targets)
+            criterion = masked_cross_entropy
+        else:
+            print("Masked training is only needed for CIL. Using CrossEntropyLoss for TIL.")
+            criterion = nn.CrossEntropyLoss()
     else:
         criterion = nn.CrossEntropyLoss()
 
