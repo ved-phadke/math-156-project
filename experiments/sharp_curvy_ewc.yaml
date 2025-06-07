@@ -3,14 +3,14 @@ learning_paradigm: "CIL" # Specify paradigm for the whole experiment
 base_model_dir: "models" 
 data_dir: "data"
 results_dir: "results"
-results_filename: "sharp_curvy_results_ewc.csv"
+results_filename: "sharp_curvy_results_final.csv"
 
 task1:
   name: "sharp_digits_CIL"
   digits: [1, 2, 4, 5, 7] 
   train_params:
-    epochs: 20
-    lr: 0.0005
+    epochs: 5
+    lr: 0.001
     batch_size: 128
     optimizer: "RMSprop"
   model_save_name: "model_task1_sharp_cil_ewc.pth"
@@ -19,11 +19,11 @@ task2:
   name: "curvy_digits_CIL"
   digits: [0, 3, 6, 8, 9] 
   train_params:
-    epochs: 10
-    lr: 0.0003
+    epochs: 3
+    lr: 0.00001
     batch_size: 128
     ewc: true
-    ewc_lambda: 10000
+    ewc_lambda: 10000000
     optimizer: "RMSprop"
   model_load_name: "model_task1_sharp_cil_ewc.pth" 
   model_save_name: "model_task2_curvy_cil_ewc.pth"
@@ -51,7 +51,6 @@ evaluation:
   - name: "eval_task1_after_task2_CIL" 
     model_load_name: "model_task2_curvy_cil_ewc.pth"
     eval_task_key: "task1"
-    bias_correction: 5.0
 
   - name: "eval_task2_after_task2_CIL"
     model_load_name: "model_task2_curvy_cil_ewc.pth"
